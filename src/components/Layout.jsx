@@ -6,11 +6,11 @@ const Layout = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleSidebar = () => setIsOpen(!isOpen);
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex bg-gray-100 ">
       <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
-      <div className="flex-1 md:ml-64">
+      <div className="flex-1 flex flex-col  ">
         <TopBar toggleSidebar={toggleSidebar} />
-        <main className="p-4">{children}</main>
+        <main className="  bg-white border-2 lg:px-80">{children}</main>
       </div>
     </div>
   );
