@@ -1,13 +1,17 @@
-import {
-  FaBars,
-  FaBell,
-  FaCommentDots,
-  FaPlus,
-  FaUser,
-  FaUserCircle,
-} from "react-icons/fa";
+import React, { useState } from "react";
+import { FaBars, FaBell, FaPlus, FaUserCircle } from "react-icons/fa";
+import AddBooking from "./AddBooking";
 
-const TopBar = ({ toggleSidebar }) => {
+const TopBar = ({ toggleSidebar, handleAddBooking, bookings }) => {
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  // const [bookings, setBookings] = useState([]); // Store added bookings
+
+  // Function to handle new booking
+
+  const openBookingModal = () => {
+    setIsBookingModalOpen(true);
+  };
+
   return (
     <header className="bg-gray-200 shadow-md sticky top-0 z-30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,8 +28,12 @@ const TopBar = ({ toggleSidebar }) => {
             <h2 className="text-xl font-bold text-gray-800">Calendar</h2>
           </div>
           <div className="flex items-center justify-end md:flex-1 lg:w-0">
-            <button className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
-              <FaPlus className="mr-2" /> Add Booking
+            <button
+              onClick={openBookingModal}
+              className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+            >
+              <FaPlus className="mr-2" />
+              AddBooking
             </button>
             <button className="ml-6 p-2 text-gray-400 hover:text-gray-500">
               <FaBell className="h-6 w-6" />
@@ -36,6 +44,11 @@ const TopBar = ({ toggleSidebar }) => {
           </div>
         </div>
       </div>
+      <AddBooking
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+        onAddBooking={handleAddBooking}
+      />
     </header>
   );
 };
