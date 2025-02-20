@@ -18,10 +18,10 @@ const localizer = dateFnsLocalizer({
 <CustomToolbar />;
 
 const CalendarBooking = ({ bookings }) => {
-  const [events, setEvents] = useState([]); // Stores all events
-  const [filteredHolidays, setFilteredHolidays] = useState([]); // Stores filtered events
-  const [startBookingDate, setStartBookingDate] = useState(""); // Stores selected start date
-  const [endBookingDate, setEndBookingDate] = useState(""); // Stores selected end date
+  const [events, setEvents] = useState([]); 
+  const [filteredHolidays, setFilteredHolidays] = useState([]);
+  const [startBookingDate, setStartBookingDate] = useState(""); 
+  const [endBookingDate, setEndBookingDate] = useState(""); 
 
   useEffect(() => {
     fetch("https://www.gov.uk/bank-holidays.json")
@@ -34,36 +34,36 @@ const CalendarBooking = ({ bookings }) => {
           isHoliday: true,
         }));
         console.log("Fetched Holidays:", holidayEvents.length);
-        // Merge holiday events with the bookings passed as prop
+       
         const allEvents = [...holidayEvents, ...bookings];
-        setEvents(allEvents); // Update events state
-        setFilteredHolidays(allEvents); // Initially show all events
+        setEvents(allEvents);
+        setFilteredHolidays(allEvents); 
       })
       .catch((error) => console.error("Error fetching events:", error));
-  }, [bookings]); // Re-fetch when bookings change
+  }, [bookings]); 
 
   const handleFilter = () => {
     if (!startBookingDate || !endBookingDate) {
-      setFilteredHolidays(events); // If no filter, show all events
+      setFilteredHolidays(events);
       return;
     }
 
     const startDate = new Date(startBookingDate);
     const endDate = new Date(endBookingDate);
 
-    // Filter events based on date range
+
     const filtered = events.filter((event) =>
       isWithinInterval(event.start, { start: startDate, end: endDate })
     );
 
     console.log("Filtered holidays:", filtered);
-    setFilteredHolidays(filtered); // Update filtered holidays
+    setFilteredHolidays(filtered);
   };
 
   const eventHoliday = (event) => {
     const style = {
-      backgroundColor: event.isHoliday ? "red" : "", // Apply red background for holidays
-      color: "white", // White text for visibility
+      backgroundColor: event.isHoliday ? "red" : "", 
+      color: "white", 
       borderRadius: "5px",
       opacity: 0.8,
       border: "none",
@@ -115,11 +115,11 @@ const CalendarBooking = ({ bookings }) => {
       </div>
       <Calendar
         localizer={localizer}
-        events={filteredHolidays} // Pass filtered events to Calendar
+        events={filteredHolidays} 
         startAccessor="start"
         endAccessor="end"
         components={{
-          toolbar: CustomToolbar, // Use custom toolbar with icons
+          toolbar: CustomToolbar, 
         }}
         style={{ height: 500 }}
         eventPropGetter={eventHoliday}

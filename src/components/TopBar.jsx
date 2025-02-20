@@ -4,9 +4,6 @@ import AddBooking from "./AddBooking";
 
 const TopBar = ({ toggleSidebar, handleAddBooking, bookings }) => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-  // const [bookings, setBookings] = useState([]); // Store added bookings
-
-  // Function to handle new booking
 
   const openBookingModal = () => {
     setIsBookingModalOpen(true);
